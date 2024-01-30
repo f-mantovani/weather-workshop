@@ -56,7 +56,7 @@ function parseDailyData({ daily }) {
 	});
 }
 
-function parseHourlyData({ hourly, current }) {
+function parseHourlyData({ hourly, current, daily }) {
 	return hourly.time
 		.map((time, index) => {
 			return {
@@ -68,5 +68,5 @@ function parseHourlyData({ hourly, current }) {
 				iconCode: hourly.weather_code[index],
 			};
 		})
-		.filter(({ timestamp }) => timestamp <= current.time * 1000);
+		.filter(({ timestamp }) => timestamp >= current.time * 1000 && timestamp <= daily.time[1] * 1000);
 }
